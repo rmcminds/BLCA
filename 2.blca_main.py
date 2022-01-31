@@ -220,6 +220,7 @@ optional.add_argument("-t", "--gap", default=10,
 optional.add_argument("-o", "--outfile", help="output file name. Default: <fasta>.blca.out", type=str)
 optional.add_argument("-p", "--proc", default=2,
                       help="how many processors are used in blastn step. Default: 2 processors", type=int)
+optional.add_argument("-k", "--ranks", help="comma-separated list of taxonomic ranks in the database", type=str, default="superkingdom,phylum,class,order,family,genus,species")
 optional.add_argument("-h", "--help", help="show this help message and exit", action="help")
 ##### parse arguments #####
 args = parser.parse_args()
@@ -319,7 +320,7 @@ print(">  > Start aligning reads...")
 # print qtosdic.values()
 os.system("rm -f " + args.outfile)
 outout = open(args.outfile, 'w+')
-levels = ["superkingdom", "phylum", "class", "order", "family", "genus", "species"]
+levels = args.ranks.split(",")
 for seqn in fsadic.keys():
     # for k1,v1 in qtosdic.items():
     k1 = seqn
